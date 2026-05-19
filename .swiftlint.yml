@@ -1,0 +1,12 @@
+# SwiftLint configuration for swift-ieee-1003
+# Inherits from the shared parent configuration in swift-standards
+
+parent_config: https://raw.githubusercontent.com/swift-standards/swift-standards/main/.swiftlint.yml
+
+# Package-specific overrides
+# (none — the parent config already disables `type_name`, which would
+#  otherwise fire on the `Guideline.G{1..14}` spec-mirrored type names.
+#  Each Guideline source file pairs an explanatory comment with a
+#  `// swiftlint:disable type_name ... // swiftlint:enable type_name`
+#  block around its declaration per [RULE-EXEMPT-spec-mirror] —
+#  defensive in case a downstream consumer narrows the parent.)

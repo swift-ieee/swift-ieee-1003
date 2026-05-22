@@ -15,4 +15,4 @@
 // `IEEE_1003 Core` get Argument-domain types (Argument.Token,
 // Argument.Name, Argument.Error, Text.Range via Tagged/Text
 // transitive re-exports) without a separate import.
-@_exported public import IEEE_1003_Namespace
+@_exported public import IEEE_1003_Primitive

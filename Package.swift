@@ -14,8 +14,8 @@ let package = Package(
     products: [
         // MARK: - Namespace
         .library(
-            name: "IEEE_1003 Namespace",
-            targets: ["IEEE_1003 Namespace"]
+            name: "IEEE_1003 Primitive",
+            targets: ["IEEE_1003 Primitive"]
         ),
 
         // MARK: - Core + Variants
@@ -47,7 +47,7 @@ let package = Package(
     targets: [
         // MARK: - Namespace
         .target(
-            name: "IEEE_1003 Namespace",
+            name: "IEEE_1003 Primitive",
             dependencies: []
         ),
 
@@ -55,7 +55,7 @@ let package = Package(
         .target(
             name: "IEEE_1003 Core",
             dependencies: [
-                "IEEE_1003 Namespace",
+                "IEEE_1003 Primitive",
                 .product(name: "Argument Primitives Core", package: "swift-argument-primitives"),
             ]
         ),
@@ -74,7 +74,7 @@ let package = Package(
         .target(
             name: "IEEE_1003",
             dependencies: [
-                "IEEE_1003 Namespace",
+                "IEEE_1003 Primitive",
                 "IEEE_1003 Core",
                 "IEEE_1003 UtilitySyntax",
             ]

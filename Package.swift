@@ -41,8 +41,8 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(path: "../../swift-primitives/swift-argument-primitives"),
-        .package(path: "../../swift-primitives/swift-parser-primitives"),
+        .package(url: "https://github.com/swift-primitives/swift-argument-primitives.git", branch: "main"),
+        .package(url: "https://github.com/swift-primitives/swift-parser-primitives.git", branch: "main"),
     ],
     targets: [
         // MARK: - Namespace

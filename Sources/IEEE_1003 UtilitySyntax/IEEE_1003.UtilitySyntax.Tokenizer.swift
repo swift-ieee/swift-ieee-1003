@@ -9,8 +9,10 @@
 //
 // ===----------------------------------------------------------------------===//
 
-internal import Argument_Primitives_Core
-public import Parser_Primitives_Core
+internal import Argument_Primitives
+public import Parser_Primitives
+internal import Text_Primitives
+internal import Index_Primitives
 
 extension IEEE_1003.UtilitySyntax {
     /// A POSIX 12.2 utility-syntax tokenizer.

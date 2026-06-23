@@ -12,6 +12,6 @@
 // Re-export Core (which itself re-exports the Argument-domain core
 // vocabulary) per [ARCH-LAYER-002]. Downstream consumers of
 // `IEEE_1003 UtilitySyntax` get the L2 namespace + L1 Argument vocabulary
-// + Text.Range (via Argument_Primitives_Core transitive re-exports)
+// + Text.Range (via Argument_Primitives transitive re-exports)
 // without a separate import.
 @_exported public import IEEE_1003_Core

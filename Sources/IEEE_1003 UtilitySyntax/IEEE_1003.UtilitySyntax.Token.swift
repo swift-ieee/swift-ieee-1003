@@ -9,7 +9,8 @@
 //
 // ===----------------------------------------------------------------------===//
 
-public import Argument_Primitives_Core
+internal import Argument_Primitives
+public import Text_Primitives
 
 extension IEEE_1003.UtilitySyntax {
     /// An L2 intermediate token emitted by ``Tokenizer`` while applying

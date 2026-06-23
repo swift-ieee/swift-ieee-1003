@@ -43,6 +43,8 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/swift-primitives/swift-argument-primitives.git", branch: "main"),
         .package(url: "https://github.com/swift-primitives/swift-parser-primitives.git", branch: "main"),
+        .package(url: "https://github.com/swift-primitives/swift-text-primitives.git", branch: "main"),
+        .package(url: "https://github.com/swift-primitives/swift-index-primitives.git", branch: "main"),
     ],
     targets: [
         // MARK: - Namespace
@@ -56,7 +58,7 @@ let package = Package(
             name: "IEEE_1003 Core",
             dependencies: [
                 "IEEE_1003 Primitive",
-                .product(name: "Argument Primitives Core", package: "swift-argument-primitives"),
+                .product(name: "Argument Primitives", package: "swift-argument-primitives"),
             ]
         ),
 
@@ -67,6 +69,8 @@ let package = Package(
                 "IEEE_1003 Core",
                 .product(name: "Argument Primitives", package: "swift-argument-primitives"),
                 .product(name: "Parser Primitives", package: "swift-parser-primitives"),
+                .product(name: "Text Primitives", package: "swift-text-primitives"),
+                .product(name: "Index Primitives", package: "swift-index-primitives"),
             ]
         ),
 
@@ -86,6 +90,8 @@ let package = Package(
             dependencies: [
                 "IEEE_1003",
                 .product(name: "Argument Primitives Test Support", package: "swift-argument-primitives"),
+                .product(name: "Text Primitives", package: "swift-text-primitives"),
+                .product(name: "Index Primitives", package: "swift-index-primitives"),
             ],
             path: "Tests/Support"
         ),

@@ -8,11 +8,11 @@ Swift implementation of IEEE 1003 (POSIX) Chapter 12 — Utility Conventions. v1
 
 ## Key Features
 
-- **Spec-mirroring** — namespace `IEEE_1003` and sub-namespace `IEEE_1003.UtilitySyntax` mirror IEEE Std 1003.1-2017 §12 verbatim per [API-NAME-003]. Guidelines `G1` through `G14` mirror "Guideline N" numbering with `description` carrying the spec text and `isValid` / `isOptionShaped` / `isEndOfOptions` static methods on the load-bearing ones.
+- **Spec-mirroring** — namespace `IEEE_1003` and sub-namespace `IEEE_1003.UtilitySyntax` mirror IEEE Std 1003.1-2017 §12 verbatim, following the ecosystem's specification-mirroring naming convention. Guidelines `G1` through `G14` mirror "Guideline N" numbering with `description` carrying the spec text and `isValid` / `isOptionShaped` / `isEndOfOptions` static methods on the load-bearing ones.
 - **L2 intermediate tokens** — `IEEE_1003.UtilitySyntax.Token` is a POSIX-shaped token type distinct from L1's `Argument.Token`. L3 (`swift-arguments`) maps L2 tokens to L1 tokens when composing the full argv pipeline.
 - **Parser.Protocol tokenizer** — `IEEE_1003.UtilitySyntax.Tokenizer` is a leaf `Parser.Protocol` conformer over `[Swift.String]` argv. The Tokenizer one-shot-consumes input and emits `[Token]` classified per Guidelines 3, 4, 5, 6, 7, 9, 10.
 - **Typed throws** — `IEEE_1003.UtilitySyntax.Error` is a typed-throws domain; each case names the POSIX 12.2 Guideline it is keyed to.
-- **Foundation-free** — no `import Foundation` anywhere. Compiles on Embedded targets per the L2-standards Foundation-discipline rule [ARCH-LAYER-007].
+- **Foundation-free** — no `import Foundation` anywhere. Compiles on Embedded targets, following the standards-layer's no-Foundation discipline.
 
 ---
 
@@ -84,10 +84,10 @@ For consumers needing only the tokenizer machinery:
 | Product | Contents | Import when... |
 |---|---|---|
 | `IEEE_1003 Namespace` | `public enum IEEE_1003 {}` only | Adding sub-namespaces without depending on Core's catalog |
-| `IEEE_1003 Core` | `IEEE_1003.UtilitySyntax` sub-namespace declaration; re-exports `Argument Primitives Core` per [ARCH-LAYER-002] | Authoring code that uses Argument-domain vocabulary alongside IEEE_1003 |
+| `IEEE_1003 Core` | `IEEE_1003.UtilitySyntax` sub-namespace declaration; re-exports `Argument Primitives Core` | Authoring code that uses Argument-domain vocabulary alongside IEEE_1003 |
 | `IEEE_1003 UtilitySyntax` | `IEEE_1003.UtilitySyntax.Token`, `Token.Kind`, `Tokenizer`, `Guideline.G1`–`G14`, `Error` | Tokenizing argv per POSIX 12.2 |
 | `IEEE_1003` | Umbrella — re-exports every sub-target | General consumers; L3 schema authors |
-| `IEEE_1003 Test Support` | Fixture helpers (`Token.fixture(_:)`); re-exports `Argument Primitives Test Support` per [MOD-024] spine | Test targets verifying tokenization |
+| `IEEE_1003 Test Support` | Fixture helpers (`Token.fixture(_:)`); re-exports `Argument Primitives Test Support` along the same dependency spine | Test targets verifying tokenization |
 
 ---
 
@@ -123,7 +123,7 @@ The L2 tokenizer composes with L3 in `swift-arguments`: that package maps `IEEE_
 
 ## Layer
 
-L2 (Standards). Implements a published specification — IEEE Std 1003.1-2017 — with type names mirroring the spec terminology per [API-NAME-003]. Vocabulary lives at L1 (`swift-argument-primitives`); the composed argument-parser foundation lives at L3 (`swift-arguments`).
+L2 (Standards). Implements a published specification — IEEE Std 1003.1-2017 — with type names mirroring the spec terminology. Vocabulary lives at L1 (`swift-argument-primitives`); the composed argument-parser foundation lives at L3 (`swift-arguments`).
 
 ---
 

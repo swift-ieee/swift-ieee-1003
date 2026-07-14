@@ -17,6 +17,12 @@ jobs:
   # Build + test matrix — see swift-standards/.github/.github/workflows/swift-ci.yml (layer wrapper)
   ci:
     uses: swift-standards/.github/.github/workflows/swift-ci.yml@main
+    with:
+      # IEEE Std 1003.1 IS the POSIX standard; Windows is not a POSIX
+      # system, so a Windows CI leg is illegitimate for this package (the
+      # platform seam is L3 per [PLAT-ARCH-001], never inside an L2 spec
+      # package — same class as swift-iso/swift-iso-9945).
+      platform-support: apple,linux
     secrets: inherit
 
   # DocC umbrella-catalog pipeline per [DOC-019a] — see

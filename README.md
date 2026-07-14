@@ -4,6 +4,14 @@
 
 Swift implementation of IEEE 1003 (POSIX) Chapter 12 — Utility Conventions. v1 ships argv tokenization per the POSIX 12.2 Utility Syntax Guidelines, surfaced as `IEEE_1003.UtilitySyntax.Tokenizer` (a `Parser.Protocol` conformer) plus the 14 numbered guidelines as type-level documentation with validators on the load-bearing ones.
 
+> **Specification identity**: IEEE Std 1003.1 and ISO/IEC/IEEE 9945 are the **same joint
+> standard** (POSIX) under two authorities' designations, encoded per volume in this
+> ecosystem. This package carries the Base Definitions volume's Chapter 12 Utility
+> Conventions (`IEEE_1003`). Sibling volume of the same joint standard:
+> [`swift-iso/swift-iso-9945`](https://github.com/swift-iso/swift-iso-9945) — the System
+> Interfaces volume (`ISO_9945`). Neither package supersedes the other; they implement
+> disjoint volumes of one specification.
+
 ---
 
 ## Key Features

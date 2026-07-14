@@ -59,7 +59,7 @@ IEEE_1003.UtilitySyntax.Guideline.G10.isEndOfOptions("---")   // false
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/swift-standards/swift-ieee-1003.git", branch: "main"),
+    .package(url: "https://github.com/swift-ieee/swift-ieee-1003.git", branch: "main"),
 ],
 targets: [
     .target(

@@ -129,12 +129,6 @@ The L2 tokenizer composes with L3 in `swift-arguments`: that package maps `IEEE_
 
 ---
 
-## Layer
-
-L2 (Standards). Implements a published specification — IEEE Std 1003.1-2017 — with type names mirroring the spec terminology. Vocabulary lives at L1 (`swift-argument-primitives`); the composed argument-parser foundation lives at L3 (`swift-arguments`).
-
----
-
 ## Platform Support
 
 Compiles on every platform with a Swift 6.3+ toolchain. No Foundation dependency, no platform-specific code.

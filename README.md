@@ -158,7 +158,7 @@ L3 consumers typically wrap these into `Argument.Error` (with `Argument.Position
 
 - [`swift-argument-primitives`](https://github.com/swift-primitives/swift-argument-primitives) — L1 vocabulary (`Argument.Name`, `Argument.Arity`, `Argument.Token`, schema-as-data combinators). This package depends on it.
 - [`swift-parser-primitives`](https://github.com/swift-primitives/swift-parser-primitives) — the `Parser.Protocol` substrate. `Tokenizer` conforms to it.
-- `swift-arguments` (L3 foundations, planned) — composes this package with GNU long-options inline and emits an `Argument.Token` stream to schema-bound parsers.
+- [`swift-arguments`](https://github.com/swift-foundations/swift-arguments) (L3 foundations) — composes this package with GNU long-options inline and emits an `Argument.Token` stream to schema-bound parsers.
 
 ---
 

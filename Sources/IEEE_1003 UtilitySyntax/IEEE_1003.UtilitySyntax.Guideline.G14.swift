@@ -21,11 +21,13 @@ extension IEEE_1003.UtilitySyntax.Guideline {
     /// implied as a default when no operand is given."
     ///
     /// Documentation-only; not enforced by ``IEEE_1003/UtilitySyntax/Tokenizer``.
-    public enum G14 {
-        /// The verbatim spec text for Guideline 14.
-        public static let description: Swift.String =
-            "If there is no operand to represent standard input or standard output, the standard input or standard output should be implied as a default when no operand is given."
-    }
+    public enum G14 {}
+}
+
+extension IEEE_1003.UtilitySyntax.Guideline.G14 {
+    /// The verbatim spec text for Guideline 14.
+    public static let description: Swift.String =
+        "If there is no operand to represent standard input or standard output, the standard input or standard output should be implied as a default when no operand is given."
 }
 
 // swiftlint:enable type_name

@@ -23,11 +23,13 @@ extension IEEE_1003.UtilitySyntax.Guideline {
     /// Utility-name constraints are a separate concern from argv tokenization;
     /// L3 consumers MAY apply this constraint to a utility-name string
     /// independently if they wish.
-    public enum G1 {
-        /// The verbatim spec text for Guideline 1.
-        public static let description: Swift.String =
-            "Utility names should be between two and nine characters, inclusive."
-    }
+    public enum G1 {}
+}
+
+extension IEEE_1003.UtilitySyntax.Guideline.G1 {
+    /// The verbatim spec text for Guideline 1.
+    public static let description: Swift.String =
+        "Utility names should be between two and nine characters, inclusive."
 }
 
 // swiftlint:enable type_name

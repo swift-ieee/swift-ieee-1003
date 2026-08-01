@@ -25,19 +25,21 @@ extension IEEE_1003.UtilitySyntax.Guideline {
     /// emits a `.endOfOptions` token when it encounters `--` and treats
     /// every subsequent argv element as `.operand` regardless of leading
     /// dashes.
-    public enum G10 {
-        /// The verbatim spec text for Guideline 10.
-        public static let description: Swift.String =
-            "The first '--' argument that is not an option-argument should be accepted as a delimiter indicating the end of options. Any following arguments should be treated as operands, even if they begin with the '-' character."
+    public enum G10 {}
+}
 
-        /// Tests whether the given argv element is the end-of-options separator.
-        ///
-        /// - Parameter element: The argv element to classify.
-        /// - Returns: `true` if the element is exactly `"--"`; `false` otherwise.
-        @inlinable
-        public static func isEndOfOptions(_ element: Swift.String) -> Swift.Bool {
-            element == "--"
-        }
+extension IEEE_1003.UtilitySyntax.Guideline.G10 {
+    /// The verbatim spec text for Guideline 10.
+    public static let description: Swift.String =
+        "The first '--' argument that is not an option-argument should be accepted as a delimiter indicating the end of options. Any following arguments should be treated as operands, even if they begin with the '-' character."
+
+    /// Tests whether the given argv element is the end-of-options separator.
+    ///
+    /// - Parameter element: The argv element to classify.
+    /// - Returns: `true` if the element is exactly `"--"`; `false` otherwise.
+    @inlinable
+    public static func isEndOfOptions(_ element: Swift.String) -> Swift.Bool {
+        element == "--"
     }
 }
 

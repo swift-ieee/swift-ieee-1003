@@ -22,31 +22,33 @@ extension IEEE_1003.UtilitySyntax.Guideline {
     /// Load-bearing for tokenization: ``IEEE_1003/UtilitySyntax/Tokenizer``
     /// recognizes option elements by their leading `-` and classifies all
     /// other elements as operands.
-    public enum G4 {
-        /// The verbatim spec text for Guideline 4.
-        public static let description: Swift.String =
-            "All options should be preceded by the '-' delimiter character."
+    public enum G4 {}
+}
 
-        /// Tests whether the given argv element is shaped like an option
-        /// per Guideline 4: starts with `-` and has at least one character
-        /// after the dash.
-        ///
-        /// Returns `false` for bare `-` (Guideline 4 declares a leading
-        /// `-` is the option marker, but a lone `-` is conventionally
-        /// treated as an operand referring to standard input).
-        ///
-        /// Returns `false` for `--` (the end-of-options separator per
-        /// Guideline 10).
-        ///
-        /// - Parameter element: The argv element to classify.
-        /// - Returns: `true` if the element is option-shaped; `false` otherwise.
-        @inlinable
-        public static func isOptionShaped(_ element: Swift.String) -> Swift.Bool {
-            guard element.hasPrefix("-") else { return false }
-            guard element.count > 1 else { return false }  // bare "-"
-            guard element != "--" else { return false }  // end-of-options
-            return true
-        }
+extension IEEE_1003.UtilitySyntax.Guideline.G4 {
+    /// The verbatim spec text for Guideline 4.
+    public static let description: Swift.String =
+        "All options should be preceded by the '-' delimiter character."
+
+    /// Tests whether the given argv element is shaped like an option
+    /// per Guideline 4: starts with `-` and has at least one character
+    /// after the dash.
+    ///
+    /// Returns `false` for bare `-` (Guideline 4 declares a leading
+    /// `-` is the option marker, but a lone `-` is conventionally
+    /// treated as an operand referring to standard input).
+    ///
+    /// Returns `false` for `--` (the end-of-options separator per
+    /// Guideline 10).
+    ///
+    /// - Parameter element: The argv element to classify.
+    /// - Returns: `true` if the element is option-shaped; `false` otherwise.
+    @inlinable
+    public static func isOptionShaped(_ element: Swift.String) -> Swift.Bool {
+        guard element.hasPrefix("-") else { return false }
+        guard element.count > 1 else { return false }  // bare "-"
+        guard element != "--" else { return false }  // end-of-options
+        return true
     }
 }
 

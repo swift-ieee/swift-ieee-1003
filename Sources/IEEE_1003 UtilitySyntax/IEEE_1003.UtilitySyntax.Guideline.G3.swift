@@ -23,21 +23,23 @@ extension IEEE_1003.UtilitySyntax.Guideline {
     /// Load-bearing for tokenization: ``IEEE_1003/UtilitySyntax/Tokenizer``
     /// rejects argv elements whose option-name character is not a single
     /// ASCII alphanumeric.
-    public enum G3 {
-        /// The verbatim spec text for Guideline 3.
-        public static let description: Swift.String =
-            "Each option name should be a single alphanumeric character (the alnum character classification) from the portable character set."
+    public enum G3 {}
+}
 
-        /// Validates that the given character is a single ASCII alphanumeric
-        /// per Guideline 3.
-        ///
-        /// - Parameter character: The candidate option-name character.
-        /// - Returns: `true` if the character is a single ASCII alphanumeric;
-        ///   `false` otherwise.
-        @inlinable
-        public static func isValid(_ character: Swift.Character) -> Swift.Bool {
-            character.isASCII && (character.isLetter || character.isNumber)
-        }
+extension IEEE_1003.UtilitySyntax.Guideline.G3 {
+    /// The verbatim spec text for Guideline 3.
+    public static let description: Swift.String =
+        "Each option name should be a single alphanumeric character (the alnum character classification) from the portable character set."
+
+    /// Validates that the given character is a single ASCII alphanumeric
+    /// per Guideline 3.
+    ///
+    /// - Parameter character: The candidate option-name character.
+    /// - Returns: `true` if the character is a single ASCII alphanumeric;
+    ///   `false` otherwise.
+    @inlinable
+    public static func isValid(_ character: Swift.Character) -> Swift.Bool {
+        character.isASCII && (character.isLetter || character.isNumber)
     }
 }
 

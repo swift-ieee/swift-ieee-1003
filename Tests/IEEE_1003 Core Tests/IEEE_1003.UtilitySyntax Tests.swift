@@ -13,13 +13,24 @@ import Testing
 
 @testable import IEEE_1003_Test_Support
 
-@Suite("IEEE 1003.UtilitySyntax namespace")
-struct IEEE_1003_UtilitySyntax_NamespaceTests {
-    @Test("Namespace is reachable")
-    func namespaceIsReachable() {
-        // Compile-only: confirm that IEEE_1003 and IEEE_1003.UtilitySyntax
-        // namespaces are reachable from a consumer importing the Test Support
-        // umbrella.
-        let _: IEEE_1003.UtilitySyntax.Token.Kind = .endOfOptions
+extension IEEE_1003.UtilitySyntax {
+    @Suite("IEEE 1003.UtilitySyntax namespace")
+    struct Test {
+        @Suite
+        struct Unit {
+            @Test("Namespace is reachable")
+            func `namespace is reachable`() {
+                // Compile-only: confirm that IEEE_1003 and IEEE_1003.UtilitySyntax
+                // namespaces are reachable from a consumer importing the Test Support
+                // umbrella.
+                let _: IEEE_1003.UtilitySyntax.Token.Kind = .endOfOptions
+            }
+        }
+
+        @Suite
+        struct `Edge Case` {}
+
+        @Suite
+        struct Integration {}
     }
 }

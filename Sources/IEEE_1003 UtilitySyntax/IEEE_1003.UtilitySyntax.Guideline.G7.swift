@@ -25,11 +25,13 @@ extension IEEE_1003.UtilitySyntax.Guideline {
     /// the `.shortCluster` and (separately, via Guideline 6 handling)
     /// the `.shortFlag + .shortValue` form, leaving the resolution to
     /// L3.
-    public enum G7 {
-        /// The verbatim spec text for Guideline 7.
-        public static let description: Swift.String =
-            "Option-arguments should not be optional."
-    }
+    public enum G7 {}
+}
+
+extension IEEE_1003.UtilitySyntax.Guideline.G7 {
+    /// The verbatim spec text for Guideline 7.
+    public static let description: Swift.String =
+        "Option-arguments should not be optional."
 }
 
 // swiftlint:enable type_name

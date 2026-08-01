@@ -25,11 +25,13 @@ extension IEEE_1003.UtilitySyntax.Guideline {
     /// Multi-value parsing is an L3 concern: the tokenizer emits the
     /// raw `.shortValue` string, and L3 schema-bound parsers split it
     /// per the relevant convention.
-    public enum G8 {
-        /// The verbatim spec text for Guideline 8.
-        public static let description: Swift.String =
-            "When multiple option-arguments are specified to follow a single option, they should be presented as a single argument, using <comma> characters within that argument or <blank> characters within that argument to separate them."
-    }
+    public enum G8 {}
+}
+
+extension IEEE_1003.UtilitySyntax.Guideline.G8 {
+    /// The verbatim spec text for Guideline 8.
+    public static let description: Swift.String =
+        "When multiple option-arguments are specified to follow a single option, they should be presented as a single argument, using <comma> characters within that argument or <blank> characters within that argument to separate them."
 }
 
 // swiftlint:enable type_name

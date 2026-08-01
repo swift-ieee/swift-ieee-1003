@@ -20,11 +20,13 @@ extension IEEE_1003.UtilitySyntax.Guideline {
     /// interpretations should be determined on a utility-specific basis."
     ///
     /// Documentation-only; not enforced by ``IEEE_1003/UtilitySyntax/Tokenizer``.
-    public enum G12 {
-        /// The verbatim spec text for Guideline 12.
-        public static let description: Swift.String =
-            "The order of operands may matter and position-related interpretations should be determined on a utility-specific basis."
-    }
+    public enum G12 {}
+}
+
+extension IEEE_1003.UtilitySyntax.Guideline.G12 {
+    /// The verbatim spec text for Guideline 12.
+    public static let description: Swift.String =
+        "The order of operands may matter and position-related interpretations should be determined on a utility-specific basis."
 }
 
 // swiftlint:enable type_name

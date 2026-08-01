@@ -35,9 +35,11 @@ extension IEEE_1003.UtilitySyntax {
             argvIndex: Swift.Int,
             byteOffset: Swift.Int
         )
+
         /// A leading dash was found without a following flag character
         /// per POSIX 12.2 Guideline 4 (a bare `-` is not an option).
         case leadingDashWithoutFlag(argvIndex: Swift.Int)
+
         /// An empty argv element was encountered. The tokenizer cannot
         /// classify a zero-length string.
         case emptyArgvElement(argvIndex: Swift.Int)

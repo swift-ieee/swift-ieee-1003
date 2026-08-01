@@ -68,109 +68,110 @@ extension IEEE_1003.UtilitySyntax {
     /// at once and emits `[Token]`. After a successful parse, `input`
     /// is empty.
     public struct Tokenizer: Parser.`Protocol` {
-        public typealias Input = [Swift.String]
-        public typealias Output = [IEEE_1003.UtilitySyntax.Token]
-        public typealias Failure = IEEE_1003.UtilitySyntax.Error
-        public typealias Body = Never
-
         /// Creates a tokenizer with default policy.
         @inlinable
         public init() {}
+    }
+}
 
-        /// Tokenizes the argv `[String]` per POSIX 12.2 §12.2.
-        ///
-        /// Consumes `input` entirely; on a successful parse, `input` is
-        /// empty.
-        ///
-        /// - Parameter input: A mutable argv `[String]` reference.
-        /// - Returns: The classified token stream.
-        /// - Throws: ``IEEE_1003/UtilitySyntax/Error`` if an argv element
-        ///   violates a load-bearing guideline (e.g., Guideline 3 ASCII
-        ///   alphanumeric short-flag character).
-        public borrowing func parse(
-            _ input: inout [Swift.String]
-        ) throws(IEEE_1003.UtilitySyntax.Error) -> [IEEE_1003.UtilitySyntax.Token] {
-            var tokens: [IEEE_1003.UtilitySyntax.Token] = []
-            var byteOffset: Swift.UInt = 0
-            var afterEndOfOptions = false
-            var argvIndex: Swift.Int = 0
+extension IEEE_1003.UtilitySyntax.Tokenizer {
+    public typealias Input = [Swift.String]
+    public typealias Output = [IEEE_1003.UtilitySyntax.Token]
+    public typealias Body = Never
 
-            while !input.isEmpty {
-                let element = input.removeFirst()
-                defer { argvIndex &+= 1 }
+    /// Tokenizes the argv `[String]` per POSIX 12.2 §12.2.
+    ///
+    /// Consumes `input` entirely; on a successful parse, `input` is
+    /// empty.
+    ///
+    /// - Parameter input: A mutable argv `[String]` reference.
+    /// - Returns: The classified token stream.
+    /// - Throws: ``IEEE_1003/UtilitySyntax/Error`` if an argv element
+    ///   violates a load-bearing guideline (e.g., Guideline 3 ASCII
+    ///   alphanumeric short-flag character).
+    public borrowing func parse(
+        _ input: inout [Swift.String]
+    ) throws(IEEE_1003.UtilitySyntax.Error) -> [IEEE_1003.UtilitySyntax.Token] {
+        var tokens: [IEEE_1003.UtilitySyntax.Token] = []
+        var byteOffset: Swift.UInt = 0
+        var afterEndOfOptions = false
+        var argvIndex: Swift.Int = 0
 
-                let elementByteCount = Swift.UInt(element.utf8.count)
-                let elementStart = Text.Position(_unchecked: Ordinal(byteOffset))
-                let elementEnd = Text.Position(_unchecked: Ordinal(byteOffset &+ elementByteCount))
-                let elementRange = Text.Range(start: elementStart, end: elementEnd)
-                defer { byteOffset &+= elementByteCount }
+        while !input.isEmpty {
+            let element = input.removeFirst()
+            defer { argvIndex &+= 1 }
 
-                // After --, every element is an operand.
-                if afterEndOfOptions {
-                    tokens.append(.init(kind: .operand(element), range: elementRange))
-                    continue
-                }
+            let elementByteCount = Swift.UInt(element.utf8.count)
+            let elementStart = Text.Position(_unchecked: Ordinal(byteOffset))
+            let elementEnd = Text.Position(_unchecked: Ordinal(byteOffset &+ elementByteCount))
+            let elementRange = Text.Range(start: elementStart, end: elementEnd)
+            defer { byteOffset &+= elementByteCount }
 
-                // -- separator (Guideline 10).
-                if IEEE_1003.UtilitySyntax.Guideline.G10.isEndOfOptions(element) {
-                    tokens.append(.init(kind: .endOfOptions, range: elementRange))
-                    afterEndOfOptions = true
-                    continue
-                }
-
-                // Non-option-shaped elements are operands (Guideline 4 inverse).
-                guard IEEE_1003.UtilitySyntax.Guideline.G4.isOptionShaped(element) else {
-                    tokens.append(.init(kind: .operand(element), range: elementRange))
-                    continue
-                }
-
-                // Option-shaped: strip leading dash; classify the remainder.
-                // element.count > 1 is guaranteed by G4.isOptionShaped.
-                let afterDash = element.dropFirst()
-                // afterDash is non-empty because element.count > 1.
-                // Validate the first character per G3.
-                guard let firstChar = afterDash.first else {
-                    // Defensive: should be unreachable under G4.isOptionShaped.
-                    throw .leadingDashWithoutFlag(argvIndex: argvIndex)
-                }
-                guard IEEE_1003.UtilitySyntax.Guideline.G3.isValid(firstChar) else {
-                    // Byte offset of the offending character: leading dash is 1 byte.
-                    throw .invalidShortFlagCharacter(
-                        found: firstChar,
-                        argvIndex: argvIndex,
-                        byteOffset: 1
-                    )
-                }
-
-                // Compute the byte-range of the flag character (after the dash).
-                // Single-character flags use 1 byte for the dash and N bytes for the char.
-                let firstCharByteCount = Swift.UInt(firstChar.utf8.count)
-                let flagStart = Text.Position(_unchecked: Ordinal(byteOffset &+ 1))
-                let flagEnd = Text.Position(
-                    _unchecked: Ordinal(byteOffset &+ 1 &+ firstCharByteCount)
-                )
-                let flagRange = Text.Range(start: flagStart, end: flagEnd)
-
-                // Single-character flag: -f
-                if afterDash.count == 1 {
-                    tokens.append(.init(kind: .shortFlag(firstChar), range: flagRange))
-                    continue
-                }
-
-                // Multi-character: -fvalue → .shortFlag('f') + .shortValue("value")
-                // (Guideline 6 concatenated form). When the value portion is itself
-                // valid as a cluster of Guideline-3 characters, the schema layer at
-                // L3 may decide to re-emit as .shortCluster instead.
-                tokens.append(.init(kind: .shortFlag(firstChar), range: flagRange))
-
-                let valueString = Swift.String(afterDash.dropFirst())
-                let valueStart = flagEnd
-                let valueEnd = Text.Position(_unchecked: Ordinal(byteOffset &+ elementByteCount))
-                let valueRange = Text.Range(start: valueStart, end: valueEnd)
-                tokens.append(.init(kind: .shortValue(valueString), range: valueRange))
+            // After --, every element is an operand.
+            if afterEndOfOptions {
+                tokens.append(.init(kind: .operand(element), range: elementRange))
+                continue
             }
 
-            return tokens
+            // -- separator (Guideline 10).
+            if IEEE_1003.UtilitySyntax.Guideline.G10.isEndOfOptions(element) {
+                tokens.append(.init(kind: .endOfOptions, range: elementRange))
+                afterEndOfOptions = true
+                continue
+            }
+
+            // Non-option-shaped elements are operands (Guideline 4 inverse).
+            guard IEEE_1003.UtilitySyntax.Guideline.G4.isOptionShaped(element) else {
+                tokens.append(.init(kind: .operand(element), range: elementRange))
+                continue
+            }
+
+            // Option-shaped: strip leading dash; classify the remainder.
+            // element.count > 1 is guaranteed by G4.isOptionShaped.
+            let afterDash = element.dropFirst()
+            // afterDash is non-empty because element.count > 1.
+            // Validate the first character per G3.
+            guard let firstChar = afterDash.first else {
+                // Defensive: should be unreachable under G4.isOptionShaped.
+                throw .leadingDashWithoutFlag(argvIndex: argvIndex)
+            }
+            guard IEEE_1003.UtilitySyntax.Guideline.G3.isValid(firstChar) else {
+                // Byte offset of the offending character: leading dash is 1 byte.
+                throw .invalidShortFlagCharacter(
+                    found: firstChar,
+                    argvIndex: argvIndex,
+                    byteOffset: 1
+                )
+            }
+
+            // Compute the byte-range of the flag character (after the dash).
+            // Single-character flags use 1 byte for the dash and N bytes for the char.
+            let firstCharByteCount = Swift.UInt(firstChar.utf8.count)
+            let flagStart = Text.Position(_unchecked: Ordinal(byteOffset &+ 1))
+            let flagEnd = Text.Position(
+                _unchecked: Ordinal(byteOffset &+ 1 &+ firstCharByteCount)
+            )
+            let flagRange = Text.Range(start: flagStart, end: flagEnd)
+
+            // Single-character flag: -f
+            if afterDash.count == 1 {
+                tokens.append(.init(kind: .shortFlag(firstChar), range: flagRange))
+                continue
+            }
+
+            // Multi-character: -fvalue → .shortFlag('f') + .shortValue("value")
+            // (Guideline 6 concatenated form). When the value portion is itself
+            // valid as a cluster of Guideline-3 characters, the schema layer at
+            // L3 may decide to re-emit as .shortCluster instead.
+            tokens.append(.init(kind: .shortFlag(firstChar), range: flagRange))
+
+            let valueString = Swift.String(afterDash.dropFirst())
+            let valueStart = flagEnd
+            let valueEnd = Text.Position(_unchecked: Ordinal(byteOffset &+ elementByteCount))
+            let valueRange = Text.Range(start: valueStart, end: valueEnd)
+            tokens.append(.init(kind: .shortValue(valueString), range: valueRange))
         }
+
+        return tokens
     }
 }

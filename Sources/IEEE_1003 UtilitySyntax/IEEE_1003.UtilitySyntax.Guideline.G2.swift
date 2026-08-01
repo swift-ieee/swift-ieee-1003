@@ -21,11 +21,13 @@ extension IEEE_1003.UtilitySyntax.Guideline {
     /// character set."
     ///
     /// Documentation-only; not enforced by ``IEEE_1003/UtilitySyntax/Tokenizer``.
-    public enum G2 {
-        /// The verbatim spec text for Guideline 2.
-        public static let description: Swift.String =
-            "Utility names should include lowercase letters and digits only from the portable character set."
-    }
+    public enum G2 {}
+}
+
+extension IEEE_1003.UtilitySyntax.Guideline.G2 {
+    /// The verbatim spec text for Guideline 2.
+    public static let description: Swift.String =
+        "Utility names should include lowercase letters and digits only from the portable character set."
 }
 
 // swiftlint:enable type_name

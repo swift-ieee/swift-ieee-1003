@@ -25,29 +25,31 @@ extension IEEE_1003.UtilitySyntax.Guideline {
     /// `a` followed by `bc` as an option-argument, when `a` is known to
     /// take a value — but this classification is L3's concern; L2 emits
     /// the cluster form and lets L3 disambiguate).
-    public enum G5 {
-        /// The verbatim spec text for Guideline 5.
-        public static let description: Swift.String =
-            "One or more options without option-arguments, followed by at most one option that takes an option-argument, should be accepted when grouped behind one '-' delimiter."
+    public enum G5 {}
+}
 
-        /// Tests whether the given argv element after the leading `-` is a
-        /// valid cluster of short-option characters per Guideline 3 + 5.
-        ///
-        /// A cluster is a non-empty sequence of ASCII alphanumeric characters.
-        ///
-        /// - Parameter afterDash: The argv-element substring after the leading `-`.
-        /// - Returns: `true` if every character is a valid short-option character;
-        ///   `false` otherwise.
-        @inlinable
-        public static func isValidCluster<S: Swift.StringProtocol>(_ afterDash: S) -> Swift.Bool {
-            guard !afterDash.isEmpty else { return false }
-            for character in afterDash {
-                guard IEEE_1003.UtilitySyntax.Guideline.G3.isValid(character) else {
-                    return false
-                }
+extension IEEE_1003.UtilitySyntax.Guideline.G5 {
+    /// The verbatim spec text for Guideline 5.
+    public static let description: Swift.String =
+        "One or more options without option-arguments, followed by at most one option that takes an option-argument, should be accepted when grouped behind one '-' delimiter."
+
+    /// Tests whether the given argv element after the leading `-` is a
+    /// valid cluster of short-option characters per Guideline 3 + 5.
+    ///
+    /// A cluster is a non-empty sequence of ASCII alphanumeric characters.
+    ///
+    /// - Parameter afterDash: The argv-element substring after the leading `-`.
+    /// - Returns: `true` if every character is a valid short-option character;
+    ///   `false` otherwise.
+    @inlinable
+    public static func isValidCluster<S: Swift.StringProtocol>(_ afterDash: S) -> Swift.Bool {
+        guard !afterDash.isEmpty else { return false }
+        for character in afterDash {
+            guard IEEE_1003.UtilitySyntax.Guideline.G3.isValid(character) else {
+                return false
             }
-            return true
         }
+        return true
     }
 }
 

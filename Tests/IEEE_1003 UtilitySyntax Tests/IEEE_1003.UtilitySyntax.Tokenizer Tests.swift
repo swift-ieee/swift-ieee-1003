@@ -21,7 +21,7 @@ extension IEEE_1003.UtilitySyntax.Tokenizer {
 
             // MARK: - Canonical argv inputs
 
-            @Test("Single short flag -f → .shortFlag('f')")
+            @Test
             func `single short flag`() throws {
                 var argv: [String] = ["-f"]
                 let tokens = try IEEE_1003.UtilitySyntax.Tokenizer().parse(&argv)
@@ -29,9 +29,7 @@ extension IEEE_1003.UtilitySyntax.Tokenizer {
                 #expect(argv.isEmpty)
             }
 
-            @Test(
-                "Single short flag with concatenated value -fvalue → .shortFlag('f') + .shortValue('value')"
-            )
+            @Test
             func `short flag with concatenated value`() throws {
                 var argv: [String] = ["-fvalue"]
                 let tokens = try IEEE_1003.UtilitySyntax.Tokenizer().parse(&argv)
@@ -43,9 +41,7 @@ extension IEEE_1003.UtilitySyntax.Tokenizer {
                 )
             }
 
-            @Test(
-                "Cluster-shaped -abc emits .shortFlag('a') + .shortValue('bc') by default (Guideline 6 default)"
-            )
+            @Test
             func `cluster shaped default`() throws {
                 var argv: [String] = ["-abc"]
                 let tokens = try IEEE_1003.UtilitySyntax.Tokenizer().parse(&argv)
@@ -60,7 +56,7 @@ extension IEEE_1003.UtilitySyntax.Tokenizer {
                 )
             }
 
-            @Test("End-of-options separator -- emits .endOfOptions; subsequent argv elements emit .operand")
+            @Test
             func `end of options`() throws {
                 var argv: [String] = ["--", "value"]
                 let tokens = try IEEE_1003.UtilitySyntax.Tokenizer().parse(&argv)
@@ -72,28 +68,28 @@ extension IEEE_1003.UtilitySyntax.Tokenizer {
                 )
             }
 
-            @Test("Operand-only argv emits a single .operand")
+            @Test
             func `operand only`() throws {
                 var argv: [String] = ["hello"]
                 let tokens = try IEEE_1003.UtilitySyntax.Tokenizer().parse(&argv)
                 #expect(tokens.map(\.kind) == [.operand("hello")])
             }
 
-            @Test("Bare - is treated as an operand (Guideline 13 convention)")
+            @Test
             func `bare dash is operand`() throws {
                 var argv: [String] = ["-"]
                 let tokens = try IEEE_1003.UtilitySyntax.Tokenizer().parse(&argv)
                 #expect(tokens.map(\.kind) == [.operand("-")])
             }
 
-            @Test("Empty argv tokenizes to no tokens")
+            @Test
             func `empty argv`() throws {
                 var argv: [String] = []
                 let tokens = try IEEE_1003.UtilitySyntax.Tokenizer().parse(&argv)
                 #expect(tokens.isEmpty)
             }
 
-            @Test("Multiple short flags as separate argv elements emit individual .shortFlag tokens")
+            @Test
             func `multiple separate short flags`() throws {
                 var argv: [String] = ["-f", "-v", "-z"]
                 let tokens = try IEEE_1003.UtilitySyntax.Tokenizer().parse(&argv)
@@ -106,7 +102,7 @@ extension IEEE_1003.UtilitySyntax.Tokenizer {
                 )
             }
 
-            @Test("Mixed: flag, value, separator, operand")
+            @Test
             func `mixed sequence`() throws {
                 var argv: [String] = ["-f", "value", "--", "operand"]
                 let tokens = try IEEE_1003.UtilitySyntax.Tokenizer().parse(&argv)
@@ -126,7 +122,7 @@ extension IEEE_1003.UtilitySyntax.Tokenizer {
 
             // MARK: - Guideline-keyed error cases
 
-            @Test("Non-alphanumeric short-flag character throws .invalidShortFlagCharacter")
+            @Test
             func `non alphanumeric short flag`() throws {
                 var argv: [String] = ["-!"]
                 do throws(IEEE_1003.UtilitySyntax.Error) {
@@ -151,7 +147,7 @@ extension IEEE_1003.UtilitySyntax.Tokenizer {
 
             // MARK: - Range semantics smoke test
 
-            @Test("Token byte-ranges are non-decreasing across the argv stream")
+            @Test
             func `token ranges are monotonic`() throws {
                 var argv: [String] = ["-f", "value", "--", "operand"]
                 let tokens = try IEEE_1003.UtilitySyntax.Tokenizer().parse(&argv)
@@ -167,7 +163,7 @@ extension IEEE_1003.UtilitySyntax.Tokenizer {
                 }
             }
 
-            @Test("After successful tokenization, input array is empty")
+            @Test
             func `input consumed fully`() throws {
                 var argv: [String] = ["-f", "operand"]
                 _ = try IEEE_1003.UtilitySyntax.Tokenizer().parse(&argv)
@@ -182,14 +178,14 @@ extension IEEE_1003.UtilitySyntax.Guideline {
     struct Test {
         @Suite
         struct Unit {
-            @Test("G3.isValid accepts ASCII alphanumeric")
+            @Test
             func `g3 accepts alphanumeric`() {
                 #expect(IEEE_1003.UtilitySyntax.Guideline.G3.isValid("a"))
                 #expect(IEEE_1003.UtilitySyntax.Guideline.G3.isValid("Z"))
                 #expect(IEEE_1003.UtilitySyntax.Guideline.G3.isValid("5"))
             }
 
-            @Test("G4.isOptionShaped recognizes -f, -fvalue; rejects -, --, plain operands")
+            @Test
             func `g4 option shape`() {
                 #expect(IEEE_1003.UtilitySyntax.Guideline.G4.isOptionShaped("-f"))
                 #expect(IEEE_1003.UtilitySyntax.Guideline.G4.isOptionShaped("-fvalue"))
@@ -201,7 +197,7 @@ extension IEEE_1003.UtilitySyntax.Guideline {
                 #expect(!IEEE_1003.UtilitySyntax.Guideline.G4.isOptionShaped(""))
             }
 
-            @Test("G5.isValidCluster accepts non-empty alphanumeric sequences")
+            @Test
             func `g5 cluster validation`() {
                 #expect(IEEE_1003.UtilitySyntax.Guideline.G5.isValidCluster("abc"))
                 #expect(IEEE_1003.UtilitySyntax.Guideline.G5.isValidCluster("xvf"))
@@ -212,7 +208,7 @@ extension IEEE_1003.UtilitySyntax.Guideline {
                 #expect(!IEEE_1003.UtilitySyntax.Guideline.G5.isValidCluster("a-b"))
             }
 
-            @Test("G10.isEndOfOptions recognizes only the literal --")
+            @Test
             func `g10 end of options`() {
                 #expect(IEEE_1003.UtilitySyntax.Guideline.G10.isEndOfOptions("--"))
 
@@ -222,7 +218,7 @@ extension IEEE_1003.UtilitySyntax.Guideline {
                 #expect(!IEEE_1003.UtilitySyntax.Guideline.G10.isEndOfOptions(""))
             }
 
-            @Test("All 14 Guideline descriptions are non-empty")
+            @Test
             func `all guideline descriptions exist`() {
                 #expect(!IEEE_1003.UtilitySyntax.Guideline.G1.description.isEmpty)
                 #expect(!IEEE_1003.UtilitySyntax.Guideline.G2.description.isEmpty)
@@ -243,7 +239,7 @@ extension IEEE_1003.UtilitySyntax.Guideline {
 
         @Suite
         struct `Edge Case` {
-            @Test("G3.isValid rejects non-ASCII and non-alphanumeric")
+            @Test
             func `g3 rejects invalid`() {
                 #expect(!IEEE_1003.UtilitySyntax.Guideline.G3.isValid("!"))
                 #expect(!IEEE_1003.UtilitySyntax.Guideline.G3.isValid("-"))
@@ -262,14 +258,14 @@ extension IEEE_1003.UtilitySyntax.Token {
     struct Test {
         @Suite
         struct Unit {
-            @Test("Token fixture helper produces a kind-equality-comparable Token")
+            @Test
             func `fixture helper round trips`() {
                 let a = IEEE_1003.UtilitySyntax.Token.fixture(.shortFlag("f"))
                 let b = IEEE_1003.UtilitySyntax.Token.fixture(.shortFlag("f"))
                 #expect(a == b)
             }
 
-            @Test("Token kind .shortFlag distinguishes per-character")
+            @Test
             func `short flags per character`() {
                 let a = IEEE_1003.UtilitySyntax.Token.fixture(.shortFlag("f"))
                 let b = IEEE_1003.UtilitySyntax.Token.fixture(.shortFlag("g"))

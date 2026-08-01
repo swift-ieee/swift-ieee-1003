@@ -18,7 +18,7 @@ extension IEEE_1003.UtilitySyntax {
     struct Test {
         @Suite
         struct Unit {
-            @Test("Namespace is reachable")
+            @Test
             func `namespace is reachable`() {
                 // Compile-only: confirm that IEEE_1003 and IEEE_1003.UtilitySyntax
                 // namespaces are reachable from a consumer importing the Test Support

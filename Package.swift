@@ -1,15 +1,15 @@
-// swift-tools-version: 6.3.3
+// swift-tools-version: 6.4
 
 import PackageDescription
 
 let package = Package(
     name: "swift-ieee-1003",
     platforms: [
-        .macOS("27"),
-        .iOS("27"),
-        .tvOS("27"),
-        .watchOS("27"),
-        .visionOS("27"),
+        .macOS(.v27),
+        .iOS(.v27),
+        .tvOS(.v27),
+        .watchOS(.v27),
+        .visionOS(.v27),
     ],
     products: [
         // MARK: - Namespace
@@ -41,10 +41,22 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/swift-primitives/swift-argument-primitives.git", branch: "main"),
-        .package(url: "https://github.com/swift-primitives/swift-parser-primitives.git", branch: "main"),
-        .package(url: "https://github.com/swift-primitives/swift-text-primitives.git", branch: "main"),
-        .package(url: "https://github.com/swift-primitives/swift-index-primitives.git", branch: "main"),
+        .package(
+            url: "https://github.com/swift-primitives/swift-argument-primitives.git",
+            branch: "main"
+        ),
+        .package(
+            url: "https://github.com/swift-primitives/swift-parser-primitives.git",
+            branch: "main"
+        ),
+        .package(
+            url: "https://github.com/swift-primitives/swift-text-primitives.git",
+            branch: "main"
+        ),
+        .package(
+            url: "https://github.com/swift-primitives/swift-index-primitives.git",
+            branch: "main"
+        ),
     ],
     targets: [
         // MARK: - Namespace
@@ -89,7 +101,10 @@ let package = Package(
             name: "IEEE_1003 Test Support",
             dependencies: [
                 "IEEE_1003",
-                .product(name: "Argument Primitives Test Support", package: "swift-argument-primitives"),
+                .product(
+                    name: "Argument Primitives Test Support",
+                    package: "swift-argument-primitives"
+                ),
                 .product(name: "Text Primitives", package: "swift-text-primitives"),
                 .product(name: "Index Primitives", package: "swift-index-primitives"),
             ],

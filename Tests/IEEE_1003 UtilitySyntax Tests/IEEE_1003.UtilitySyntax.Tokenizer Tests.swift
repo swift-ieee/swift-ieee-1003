@@ -1,14 +1,3 @@
-// ===----------------------------------------------------------------------===//
-//
-// This source file is part of the swift-ieee-1003 open source project
-//
-// Copyright (c) 2026 Coen ten Thije Boonkkamp and the swift-ieee-1003 project authors
-// Licensed under Apache License v2.0
-//
-// See LICENSE for license information
-//
-// ===----------------------------------------------------------------------===//
-
 import Testing
 
 @testable import IEEE_1003_Test_Support
@@ -18,8 +7,6 @@ extension IEEE_1003.UtilitySyntax.Tokenizer {
     struct Test {
         @Suite
         struct Unit {
-
-            // MARK: - Canonical argv inputs
 
             @Test
             func `single short flag`() throws {
@@ -45,9 +32,7 @@ extension IEEE_1003.UtilitySyntax.Tokenizer {
             func `cluster shaped default`() throws {
                 var argv: [String] = ["-abc"]
                 let tokens = try IEEE_1003.UtilitySyntax.Tokenizer().parse(&argv)
-                // L2 default policy: emit Guideline-6 concatenated form. L3 re-classifies
-                // into Guideline-5 cluster form (`.shortCluster("bc")`) when the schema
-                // indicates `a` is a value-less flag.
+
                 #expect(
                     tokens.map(\.kind) == [
                         .shortFlag("a"),
@@ -120,8 +105,6 @@ extension IEEE_1003.UtilitySyntax.Tokenizer {
         @Suite
         struct `Edge Case` {
 
-            // MARK: - Guideline-keyed error cases
-
             @Test
             func `non alphanumeric short flag`() throws {
                 var argv: [String] = ["-!"]
@@ -145,15 +128,11 @@ extension IEEE_1003.UtilitySyntax.Tokenizer {
         @Suite
         struct Integration {
 
-            // MARK: - Range semantics smoke test
-
             @Test
             func `token ranges are monotonic`() throws {
                 var argv: [String] = ["-f", "value", "--", "operand"]
                 let tokens = try IEEE_1003.UtilitySyntax.Tokenizer().parse(&argv)
 
-                // Each token's start should be >= the previous token's start.
-                // (Token end >= start is the Text.Range invariant.)
                 var lastStart: Text.Position? = nil
                 for token in tokens {
                     if let last = lastStart {

@@ -12,13 +12,12 @@ let package = Package(
         .visionOS(.v27),
     ],
     products: [
-        // MARK: - Namespace
+
         .library(
             name: "IEEE_1003 Primitive",
             targets: ["IEEE_1003 Primitive"]
         ),
 
-        // MARK: - Core + Variants
         .library(
             name: "IEEE_1003 Core",
             targets: ["IEEE_1003 Core"]
@@ -28,13 +27,11 @@ let package = Package(
             targets: ["IEEE_1003 UtilitySyntax"]
         ),
 
-        // MARK: - Umbrella
         .library(
             name: "IEEE_1003",
             targets: ["IEEE_1003"]
         ),
 
-        // MARK: - Test Support
         .library(
             name: "IEEE_1003 Test Support",
             targets: ["IEEE_1003 Test Support"]
@@ -59,13 +56,12 @@ let package = Package(
         ),
     ],
     targets: [
-        // MARK: - Namespace
+
         .target(
             name: "IEEE_1003 Primitive",
             dependencies: []
         ),
 
-        // MARK: - Core
         .target(
             name: "IEEE_1003 Core",
             dependencies: [
@@ -74,7 +70,6 @@ let package = Package(
             ]
         ),
 
-        // MARK: - UtilitySyntax
         .target(
             name: "IEEE_1003 UtilitySyntax",
             dependencies: [
@@ -86,7 +81,6 @@ let package = Package(
             ]
         ),
 
-        // MARK: - Umbrella
         .target(
             name: "IEEE_1003",
             dependencies: [
@@ -96,7 +90,6 @@ let package = Package(
             ]
         ),
 
-        // MARK: - Test Support
         .target(
             name: "IEEE_1003 Test Support",
             dependencies: [
@@ -111,7 +104,6 @@ let package = Package(
             path: "Tests/Support"
         ),
 
-        // MARK: - Tests
         .testTarget(
             name: "IEEE_1003 Core Tests",
             dependencies: ["IEEE_1003 Test Support"]

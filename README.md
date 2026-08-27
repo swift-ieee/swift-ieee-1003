@@ -17,7 +17,7 @@ Swift implementation of IEEE 1003 (POSIX) Chapter 12 — Utility Conventions. v1
 ## Key Features
 
 - **Spec-mirroring** — namespace `IEEE_1003` and sub-namespace `IEEE_1003.UtilitySyntax` mirror IEEE Std 1003.1-2017 §12 verbatim, following the ecosystem's specification-mirroring naming convention. Guidelines `G1` through `G14` mirror "Guideline N" numbering with `description` carrying the spec text and `isValid` / `isOptionShaped` / `isEndOfOptions` static methods on the load-bearing ones.
-- **L2 intermediate tokens** — `IEEE_1003.UtilitySyntax.Token` is a POSIX-shaped token type distinct from L1's `Argument.Token`. L3 (`swift-arguments`) maps L2 tokens to L1 tokens when composing the full argv pipeline.
+- **L3 intermediate tokens** — `IEEE_1003.UtilitySyntax.Token` is a POSIX-shaped token type distinct from L2's `Argument.Token`. L4 (`swift-arguments`) maps L3 tokens to L2 tokens when composing the full argv pipeline.
 - **Parser.Protocol tokenizer** — `IEEE_1003.UtilitySyntax.Tokenizer` is a leaf `Parser.Protocol` conformer over `[Swift.String]` argv. The Tokenizer one-shot-consumes input and emits `[Token]` classified per Guidelines 3, 4, 5, 6, 7, 9, 10.
 - **Typed throws** — `IEEE_1003.UtilitySyntax.Error` is a typed-throws domain; each case names the POSIX 12.2 Guideline it is keyed to.
 - **Foundation-free** — no `import Foundation` anywhere. Compiles on Embedded targets, following the standards-layer's no-Foundation discipline.
@@ -92,10 +92,10 @@ For consumers needing only the tokenizer machinery:
 | Product | Contents | Import when... |
 |---|---|---|
 | `IEEE_1003 Namespace` | `public enum IEEE_1003 {}` only | Adding sub-namespaces without depending on Core's catalog |
-| `IEEE_1003 Core` | `IEEE_1003.UtilitySyntax` sub-namespace declaration; re-exports `Argument Primitives Core` | Authoring code that uses Argument-domain vocabulary alongside IEEE_1003 |
+| `IEEE_1003 Core` | `IEEE_1003.UtilitySyntax` sub-namespace declaration; re-exports `Argument` | Authoring code that uses Argument-domain vocabulary alongside IEEE_1003 |
 | `IEEE_1003 UtilitySyntax` | `IEEE_1003.UtilitySyntax.Token`, `Token.Kind`, `Tokenizer`, `Guideline.G1`–`G14`, `Error` | Tokenizing argv per POSIX 12.2 |
-| `IEEE_1003` | Umbrella — re-exports every sub-target | General consumers; L3 schema authors |
-| `IEEE_1003 Test Support` | Fixture helpers (`Token.fixture(_:)`); re-exports `Argument Primitives Test Support` along the same dependency spine | Test targets verifying tokenization |
+| `IEEE_1003` | Umbrella — re-exports every sub-target | General consumers; L4 schema authors |
+| `IEEE_1003 Test Support` | Fixture helpers (`Token.fixture(_:)`); re-exports `Argument Test Support` along the same dependency spine | Test targets verifying tokenization |
 
 ---
 
@@ -104,7 +104,7 @@ For consumers needing only the tokenizer machinery:
 ```
 IEEE_1003
 └── UtilitySyntax                       — IEEE Std 1003.1-2017 §12.2 Utility Syntax Guidelines
-    ├── Token                            — L2 intermediate token (distinct from L1's Argument.Token)
+    ├── Token                            — L3 intermediate token (distinct from L2's Argument.Token)
     │   └── Kind                         — shortFlag(Char) | shortValue | shortCluster | operand | endOfOptions
     ├── Tokenizer                        — Parser.`Protocol` from [String] argv to [Token]
     ├── Error                            — typed-throws errors keyed to Guideline violations
@@ -125,7 +125,7 @@ IEEE_1003
         └── G14                           — Default operand                             [doc only]
 ```
 
-The L2 tokenizer composes with L3 in `swift-arguments`: that package maps `IEEE_1003.UtilitySyntax.Token` (POSIX-shaped) to L1's `Argument.Token` (post-normalization), and adds GNU long-option handling inline per the v1 scope discipline.
+The L3 tokenizer composes with L4 in `swift-arguments`: that package maps `IEEE_1003.UtilitySyntax.Token` (POSIX-shaped) to L2's `Argument.Token` (post-normalization), and adds GNU long-option handling inline per the v1 scope discipline.
 
 ---
 
@@ -150,15 +150,15 @@ case .emptyArgvElement(let argvIndex):
 }
 ```
 
-L3 consumers typically wrap these into `Argument.Error` (with `Argument.Position` populated from the per-case `argvIndex` + `byteOffset`).
+L4 consumers typically wrap these into `Argument.Error` (with `Argument.Position` populated from the per-case `argvIndex` + `byteOffset`).
 
 ---
 
 ## Related Packages
 
-- [`swift-argument-primitives`](https://github.com/swift-primitives/swift-argument-primitives) — L1 vocabulary (`Argument.Name`, `Argument.Arity`, `Argument.Token`, schema-as-data combinators). This package depends on it.
-- [`swift-parser-primitives`](https://github.com/swift-primitives/swift-parser-primitives) — the `Parser.Protocol` substrate. `Tokenizer` conforms to it.
-- [`swift-arguments`](https://github.com/swift-foundations/swift-arguments) (L3 foundations) — composes this package with GNU long-options inline and emits an `Argument.Token` stream to schema-bound parsers.
+- [`swift-argument`](https://github.com/swift-molecules/swift-argument) — L2 vocabulary (`Argument.Name`, `Argument.Arity`, `Argument.Token`, schema-as-data combinators). This package depends on it.
+- [`swift-parser`](https://github.com/swift-molecules/swift-parser) — the `Parser.Protocol` substrate. `Tokenizer` conforms to it.
+- [`swift-arguments`](https://github.com/swift-compositions/swift-arguments) (L4 compositions) — composes this package with GNU long-options inline and emits an `Argument.Token` stream to schema-bound parsers.
 
 ---
 

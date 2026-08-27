@@ -1,7 +1,7 @@
-internal import Argument_Primitives
-internal import Index_Primitives
-public import Parser_Primitives
-internal import Text_Primitives
+internal import Argument
+internal import Index
+public import Parser
+internal import Text
 
 extension IEEE_1003.UtilitySyntax {
 

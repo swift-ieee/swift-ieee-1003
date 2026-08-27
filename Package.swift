@@ -39,19 +39,19 @@ let package = Package(
     ],
     dependencies: [
         .package(
-            url: "https://github.com/swift-primitives/swift-argument-primitives.git",
+            url: "https://github.com/swift-molecules/swift-argument.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-parser-primitives.git",
+            url: "https://github.com/swift-molecules/swift-parser.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-text-primitives.git",
+            url: "https://github.com/swift-molecules/swift-text.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-index-primitives.git",
+            url: "https://github.com/swift-molecules/swift-index.git",
             branch: "main"
         ),
     ],
@@ -66,7 +66,7 @@ let package = Package(
             name: "IEEE_1003 Core",
             dependencies: [
                 "IEEE_1003 Primitive",
-                .product(name: "Argument Primitives", package: "swift-argument-primitives"),
+                .product(name: "Argument", package: "swift-argument"),
             ]
         ),
 
@@ -74,10 +74,10 @@ let package = Package(
             name: "IEEE_1003 UtilitySyntax",
             dependencies: [
                 "IEEE_1003 Core",
-                .product(name: "Argument Primitives", package: "swift-argument-primitives"),
-                .product(name: "Parser Primitives", package: "swift-parser-primitives"),
-                .product(name: "Text Primitives", package: "swift-text-primitives"),
-                .product(name: "Index Primitives", package: "swift-index-primitives"),
+                .product(name: "Argument", package: "swift-argument"),
+                .product(name: "Parser", package: "swift-parser"),
+                .product(name: "Text", package: "swift-text"),
+                .product(name: "Index", package: "swift-index"),
             ]
         ),
 
@@ -95,11 +95,11 @@ let package = Package(
             dependencies: [
                 "IEEE_1003",
                 .product(
-                    name: "Argument Primitives Test Support",
-                    package: "swift-argument-primitives"
+                    name: "Argument Test Support",
+                    package: "swift-argument"
                 ),
-                .product(name: "Text Primitives", package: "swift-text-primitives"),
-                .product(name: "Index Primitives", package: "swift-index-primitives"),
+                .product(name: "Text", package: "swift-text"),
+                .product(name: "Index", package: "swift-index"),
             ],
             path: "Tests/Support"
         ),

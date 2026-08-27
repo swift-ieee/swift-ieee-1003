@@ -1,5 +1,5 @@
-internal import Argument_Primitives
-public import Text_Primitives
+internal import Argument
+public import Text
 
 extension IEEE_1003.UtilitySyntax {
 

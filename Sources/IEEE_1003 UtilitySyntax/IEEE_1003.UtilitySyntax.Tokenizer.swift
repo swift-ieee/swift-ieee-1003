@@ -5,7 +5,7 @@ internal import Text
 
 extension IEEE_1003.UtilitySyntax {
 
-    public struct Tokenizer: Parser.`Protocol` {
+    public struct Tokenizer: Parsing {
 
         @inlinable
         public init() {}

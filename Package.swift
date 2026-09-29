@@ -39,19 +39,19 @@ let package = Package(
     ],
     dependencies: [
         .package(
-            url: "https://github.com/swift-molecules/swift-argument.git",
+            url: "https://github.com/swift-atoms/swift-argument.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-molecules/swift-parser.git",
+            url: "https://github.com/swift-atoms/swift-parser.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-molecules/swift-text.git",
+            url: "https://github.com/swift-atoms/swift-text.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-molecules/swift-index.git",
+            url: "https://github.com/swift-atoms/swift-index.git",
             branch: "main"
         ),
     ],

@@ -6,6 +6,11 @@ internal import Text
 extension IEEE_1003.UtilitySyntax {
 
     public struct Tokenizer: Parsing {
+        public var body: Never {
+            borrowing get {
+                return fatalError("\(Self.self) is a leaf: implement its conformance requirements directly")
+            }
+        }
 
         @inlinable
         public init() {}

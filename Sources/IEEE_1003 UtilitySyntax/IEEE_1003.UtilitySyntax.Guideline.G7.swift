@@ -5,6 +5,6 @@ extension IEEE_1003.UtilitySyntax.Guideline {
 
 extension IEEE_1003.UtilitySyntax.Guideline.G7 {
 
-    public static let description: Swift.String =
+    public static let description: Swift::String =
         "Option-arguments should not be optional."
 }

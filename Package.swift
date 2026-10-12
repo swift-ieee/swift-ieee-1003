@@ -65,7 +65,7 @@ let package = Package(
         .target(
             name: "IEEE_1003 Core",
             dependencies: [
-                "IEEE_1003 Primitive",
+                .target(name: "IEEE_1003 Primitive"),
                 .product(name: "Argument", package: "swift-argument"),
             ]
         ),
@@ -73,7 +73,7 @@ let package = Package(
         .target(
             name: "IEEE_1003 UtilitySyntax",
             dependencies: [
-                "IEEE_1003 Core",
+                .target(name: "IEEE_1003 Core"),
                 .product(name: "Argument", package: "swift-argument"),
                 .product(name: "Parser", package: "swift-parser"),
                 .product(name: "Text", package: "swift-text"),
@@ -84,16 +84,16 @@ let package = Package(
         .target(
             name: "IEEE_1003",
             dependencies: [
-                "IEEE_1003 Primitive",
-                "IEEE_1003 Core",
-                "IEEE_1003 UtilitySyntax",
+                .target(name: "IEEE_1003 Primitive"),
+                .target(name: "IEEE_1003 Core"),
+                .target(name: "IEEE_1003 UtilitySyntax"),
             ]
         ),
 
         .target(
             name: "IEEE_1003 Test Support",
             dependencies: [
-                "IEEE_1003",
+                .target(name: "IEEE_1003"),
                 .product(
                     name: "Argument Test Support",
                     package: "swift-argument"
@@ -106,28 +106,25 @@ let package = Package(
 
         .testTarget(
             name: "IEEE_1003 Core Tests",
-            dependencies: ["IEEE_1003 Test Support"]
+            dependencies: [.target(name: "IEEE_1003 Test Support")]
         ),
         .testTarget(
             name: "IEEE_1003 UtilitySyntax Tests",
-            dependencies: ["IEEE_1003 Test Support"]
+            dependencies: [.target(name: "IEEE_1003 Test Support")]
         ),
     ],
     swiftLanguageModes: [.v6]
 )
 
 for target in package.targets where ![.system, .binary, .plugin, .macro].contains(target.type) {
-    let ecosystem: [SwiftSetting] = [
+    target.swiftSettings = (target.swiftSettings ?? []) + [
         .strictMemorySafety(),
         .enableUpcomingFeature("ExistentialAny"),
         .enableUpcomingFeature("InternalImportsByDefault"),
         .enableUpcomingFeature("MemberImportVisibility"),
         .enableUpcomingFeature("NonisolatedNonsendingByDefault"),
-        .enableExperimentalFeature("Lifetimes"),
         .enableUpcomingFeature("InferIsolatedConformances"),
+        .enableExperimentalFeature("Lifetimes"),
+        .treatAllWarnings(as: .error),
     ]
-
-    let package: [SwiftSetting] = []
-
-    target.swiftSettings = (target.swiftSettings ?? []) + ecosystem + package
 }

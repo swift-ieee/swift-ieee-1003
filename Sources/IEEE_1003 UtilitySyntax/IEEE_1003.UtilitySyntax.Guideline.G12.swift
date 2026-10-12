@@ -5,6 +5,6 @@ extension IEEE_1003.UtilitySyntax.Guideline {
 
 extension IEEE_1003.UtilitySyntax.Guideline.G12 {
 
-    public static let description: Swift.String =
+    public static let description: Swift::String =
         "The order of operands may matter and position-related interpretations should be determined on a utility-specific basis."
 }

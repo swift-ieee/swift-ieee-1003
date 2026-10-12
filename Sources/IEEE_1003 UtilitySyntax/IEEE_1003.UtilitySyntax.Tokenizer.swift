@@ -13,23 +13,23 @@ extension IEEE_1003.UtilitySyntax {
 }
 
 extension IEEE_1003.UtilitySyntax.Tokenizer {
-    public typealias Input = [Swift.String]
+    public typealias Input = [Swift::String]
     public typealias Output = [IEEE_1003.UtilitySyntax.Token]
     public typealias Body = Never
 
     public borrowing func parse(
-        _ input: inout [Swift.String]
+        _ input: inout [Swift::String]
     ) throws(IEEE_1003.UtilitySyntax.Error) -> [IEEE_1003.UtilitySyntax.Token] {
         var tokens: [IEEE_1003.UtilitySyntax.Token] = []
-        var byteOffset: Swift.UInt = 0
+        var byteOffset: Swift::UInt = 0
         var afterEndOfOptions = false
-        var argvIndex: Swift.Int = 0
+        var argvIndex: Swift::Int = 0
 
         while !input.isEmpty {
             let element = input.removeFirst()
             defer { argvIndex &+= 1 }
 
-            let elementByteCount = Swift.UInt(element.utf8.count)
+            let elementByteCount = Swift::UInt(element.utf8.count)
             let elementStart = Text.Position(_unchecked: Ordinal(byteOffset))
             let elementEnd = Text.Position(_unchecked: Ordinal(byteOffset &+ elementByteCount))
             let elementRange = Text.Range(start: elementStart, end: elementEnd)
@@ -66,7 +66,7 @@ extension IEEE_1003.UtilitySyntax.Tokenizer {
                 )
             }
 
-            let firstCharByteCount = Swift.UInt(firstChar.utf8.count)
+            let firstCharByteCount = Swift::UInt(firstChar.utf8.count)
             let flagStart = Text.Position(_unchecked: Ordinal(byteOffset &+ 1))
             let flagEnd = Text.Position(
                 _unchecked: Ordinal(byteOffset &+ 1 &+ firstCharByteCount)
@@ -80,7 +80,7 @@ extension IEEE_1003.UtilitySyntax.Tokenizer {
 
             tokens.append(.init(kind: .shortFlag(firstChar), range: flagRange))
 
-            let valueString = Swift.String(afterDash.dropFirst())
+            let valueString = Swift::String(afterDash.dropFirst())
             let valueStart = flagEnd
             let valueEnd = Text.Position(_unchecked: Ordinal(byteOffset &+ elementByteCount))
             let valueRange = Text.Range(start: valueStart, end: valueEnd)

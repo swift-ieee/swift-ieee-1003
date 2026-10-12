@@ -5,6 +5,6 @@ extension IEEE_1003.UtilitySyntax.Guideline {
 
 extension IEEE_1003.UtilitySyntax.Guideline.G9 {
 
-    public static let description: Swift.String =
+    public static let description: Swift::String =
         "All options should precede operands on the command line."
 }

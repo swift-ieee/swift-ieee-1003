@@ -2,7 +2,9 @@ import Testing
 
 @testable import IEEE_1003_Test_Support
 
-extension IEEE_1003.UtilitySyntax {
+enum `IEEE_1003.UtilitySyntax Tests` {}
+
+extension `IEEE_1003.UtilitySyntax Tests` {
     @Suite("IEEE 1003.UtilitySyntax namespace")
     struct Test {
         @Suite

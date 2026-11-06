@@ -2,7 +2,9 @@ import Testing
 
 @testable import IEEE_1003_Test_Support
 
-extension IEEE_1003.UtilitySyntax.Tokenizer {
+enum `IEEE_1003.UtilitySyntax.Tokenizer Tests` {}
+
+extension `IEEE_1003.UtilitySyntax.Tokenizer Tests` {
     @Suite("IEEE 1003.UtilitySyntax.Tokenizer")
     struct Test {
         @Suite
@@ -152,7 +154,9 @@ extension IEEE_1003.UtilitySyntax.Tokenizer {
     }
 }
 
-extension IEEE_1003.UtilitySyntax.Guideline {
+enum `IEEE_1003.UtilitySyntax.Guideline Tests` {}
+
+extension `IEEE_1003.UtilitySyntax.Guideline Tests` {
     @Suite("IEEE 1003.UtilitySyntax.Guideline static validators")
     struct Test {
         @Suite
@@ -232,7 +236,9 @@ extension IEEE_1003.UtilitySyntax.Guideline {
     }
 }
 
-extension IEEE_1003.UtilitySyntax.Token {
+enum `IEEE_1003.UtilitySyntax.Token Tests` {}
+
+extension `IEEE_1003.UtilitySyntax.Token Tests` {
     @Suite("IEEE 1003.UtilitySyntax.Token equality")
     struct Test {
         @Suite

@@ -5,7 +5,7 @@ import Testing
 enum `IEEE_1003.UtilitySyntax Tests` {}
 
 extension `IEEE_1003.UtilitySyntax Tests` {
-    @Suite("IEEE 1003.UtilitySyntax namespace")
+    @Suite
     struct Test {
         @Suite
         struct Unit {

@@ -5,7 +5,7 @@ import Testing
 enum `IEEE_1003.UtilitySyntax.Tokenizer Tests` {}
 
 extension `IEEE_1003.UtilitySyntax.Tokenizer Tests` {
-    @Suite("IEEE 1003.UtilitySyntax.Tokenizer")
+    @Suite
     struct Test {
         @Suite
         struct Unit {
@@ -157,7 +157,7 @@ extension `IEEE_1003.UtilitySyntax.Tokenizer Tests` {
 enum `IEEE_1003.UtilitySyntax.Guideline Tests` {}
 
 extension `IEEE_1003.UtilitySyntax.Guideline Tests` {
-    @Suite("IEEE 1003.UtilitySyntax.Guideline static validators")
+    @Suite
     struct Test {
         @Suite
         struct Unit {
@@ -239,7 +239,7 @@ extension `IEEE_1003.UtilitySyntax.Guideline Tests` {
 enum `IEEE_1003.UtilitySyntax.Token Tests` {}
 
 extension `IEEE_1003.UtilitySyntax.Token Tests` {
-    @Suite("IEEE 1003.UtilitySyntax.Token equality")
+    @Suite
     struct Test {
         @Suite
         struct Unit {

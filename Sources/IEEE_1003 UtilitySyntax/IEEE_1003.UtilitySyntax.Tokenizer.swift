@@ -32,7 +32,7 @@ extension IEEE_1003.UtilitySyntax.Tokenizer {
             let elementByteCount = Swift::UInt(element.utf8.count)
             let elementStart = Text.Position(_unchecked: Ordinal(byteOffset))
             let elementEnd = Text.Position(_unchecked: Ordinal(byteOffset &+ elementByteCount))
-            let elementRange = Text.Range(start: elementStart, end: elementEnd)
+            let elementRange = Self.range(from: elementStart, to: elementEnd)
             defer { byteOffset &+= elementByteCount }
 
             if afterEndOfOptions {
@@ -71,7 +71,7 @@ extension IEEE_1003.UtilitySyntax.Tokenizer {
             let flagEnd = Text.Position(
                 _unchecked: Ordinal(byteOffset &+ 1 &+ firstCharByteCount)
             )
-            let flagRange = Text.Range(start: flagStart, end: flagEnd)
+            let flagRange = Self.range(from: flagStart, to: flagEnd)
 
             if afterDash.count == 1 {
                 tokens.append(.init(kind: .shortFlag(firstChar), range: flagRange))
@@ -83,10 +83,19 @@ extension IEEE_1003.UtilitySyntax.Tokenizer {
             let valueString = Swift::String(afterDash.dropFirst())
             let valueStart = flagEnd
             let valueEnd = Text.Position(_unchecked: Ordinal(byteOffset &+ elementByteCount))
-            let valueRange = Text.Range(start: valueStart, end: valueEnd)
+            let valueRange = Self.range(from: valueStart, to: valueEnd)
             tokens.append(.init(kind: .shortValue(valueString), range: valueRange))
         }
 
         return tokens
+    }
+
+    /// Byte offsets only grow while tokenizing, so `end` never precedes `start`.
+    static func range(from start: Text.Position, to end: Text.Position) -> Text.Range {
+        do throws(Text.Range.Error) {
+            return try Text.Range(start: start, end: end)
+        } catch {
+            preconditionFailure("Tokenizer byte offsets only grow: \(error)")
+        }
     }
 }
